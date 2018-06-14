@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/video_tracker
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+  guard:
+    build: .
+    volumes:
+      - .:/video_tracker
+    environment:
+      - RAILS_ENV=development
+    command: bundle exec guard --no-bundler-warning --no-interactions

@@ -1,0 +1,21 @@
+# default_local: &default_local
+#   adapter: postgresql
+#   username: odd
+#   password: password
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: postgres
+  password:
+  pool: 5
+
+development:
+  <<: *default
+  database: video_tracker_development
+
+test:
+  <<: *default
+  database: video_tracker_test
+
+
